@@ -128,7 +128,7 @@ int16_t   blexPeripheralRssi(BlexPeripheral handle) {
   return simpleble_peripheral_rssi(handle);
 }
 
-int16_t   BlexPeripheralxPower(BlexPeripheral handle) {
+int16_t   blexPeripheralPower(BlexPeripheral handle) {
   return simpleble_peripheral_tx_power(handle);
 }
 
@@ -188,7 +188,7 @@ BlexErrorCode blexPeripheralRead(BlexPeripheral handle,
   return simpleble_peripheral_read(handle, service, characteristic, data, data_length);
 }
 
-BlexErrorCode eblexPeripheralWriteRequest(BlexPeripheral handle,
+BlexErrorCode blexPeripheralWriteRequest(BlexPeripheral handle,
                                                 BlexUUID service,
                                                 BlexUUID characteristic,
                                           const uint8_t* data,
