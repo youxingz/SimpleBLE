@@ -36,3 +36,6 @@ target_link_libraries(example_notify_c simpleble::simpleble-c)
 
 add_executable(example_scan_c c/scan.c)
 target_link_libraries(example_scan_c simpleble::simpleble-c)
+
+add_executable(libblex.dylib c/driver.c)
+target_link_libraries(libblex.dylib simpleble::simpleble-c)
