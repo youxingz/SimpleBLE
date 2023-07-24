@@ -109,7 +109,7 @@ BlexErrorCode blexAdapterSetCallbackOnScanFound(
 // peripheral.h
 
 void blexPeripheralReleaseHandle(BlexPeripheral handle) {
-  return simpleble_peripheral_release_handle(handle);
+  simpleble_peripheral_release_handle(handle);
 }
 
 char* blexPeripheralIdentifier(BlexPeripheral handle) {
