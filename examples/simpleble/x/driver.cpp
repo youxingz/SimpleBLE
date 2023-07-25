@@ -3,10 +3,10 @@
 
 #include "simpleble_c/simpleble.h"
 
-#if defined(__WIN32__)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #define BLEX_EXPORT __declspec(dllexport)
 #else
-#define BLEX_EXPORT __declspec(dllexport)
+#define BLEX_EXPORT
 #endif
 
 // proxy func.
