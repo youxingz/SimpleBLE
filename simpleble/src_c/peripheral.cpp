@@ -318,7 +318,7 @@ simpleble_err_t simpleble_peripheral_write_command(simpleble_peripheral_t handle
 
 simpleble_err_t simpleble_peripheral_notify(
     simpleble_peripheral_t handle, simpleble_uuid_t service, simpleble_uuid_t characteristic,
-    void (*callback)(simpleble_uuid_t, simpleble_uuid_t, const uint8_t*, size_t, void*), void* userdata) {
+    void (*callback)(const char*, const char*, const uint8_t*, size_t)) {
     if (handle == nullptr || callback == nullptr) {
         return SIMPLEBLE_FAILURE;
     }
@@ -327,8 +327,7 @@ simpleble_err_t simpleble_peripheral_notify(
 
     bool success = peripheral->notify(SimpleBLE::BluetoothUUID(service.value),
                                       SimpleBLE::BluetoothUUID(characteristic.value), [=](SimpleBLE::ByteArray data) {
-                                          callback(service, characteristic, (const uint8_t*)data.data(), data.size(),
-                                                   userdata);
+                                          callback(service.value, characteristic.value, (const uint8_t*)data.data(), data.size());
                                       });
 
     return success ? SIMPLEBLE_SUCCESS : SIMPLEBLE_FAILURE;
@@ -336,7 +335,7 @@ simpleble_err_t simpleble_peripheral_notify(
 
 simpleble_err_t simpleble_peripheral_indicate(
     simpleble_peripheral_t handle, simpleble_uuid_t service, simpleble_uuid_t characteristic,
-    void (*callback)(simpleble_uuid_t, simpleble_uuid_t, const uint8_t*, size_t, void*), void* userdata) {
+    void (*callback)(const char*, const char*, const uint8_t*, size_t)) {
     if (handle == nullptr || callback == nullptr) {
         return SIMPLEBLE_FAILURE;
     }
@@ -345,8 +344,7 @@ simpleble_err_t simpleble_peripheral_indicate(
 
     bool success = peripheral->indicate(SimpleBLE::BluetoothUUID(service.value),
                                         SimpleBLE::BluetoothUUID(characteristic.value), [=](SimpleBLE::ByteArray data) {
-                                            callback(service, characteristic, (const uint8_t*)data.data(), data.size(),
-                                                     userdata);
+                                            callback(service.value, characteristic.value, (const uint8_t*)data.data(), data.size());
                                         });
 
     return success ? SIMPLEBLE_SUCCESS : SIMPLEBLE_FAILURE;

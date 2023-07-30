@@ -21,6 +21,14 @@ BLEX_EXPORT typedef simpleble_service_t BlexService;
 BLEX_EXPORT typedef simpleble_manufacturer_data_t BlexManufacturerData;
 BLEX_EXPORT typedef simpleble_uuid_t BlexUUID;
 
+static inline BlexUUID to_uuid(char* uuid) {
+  BlexUUID uuid_;
+  for (uint8_t i = 0; i < 37; i++) {
+    uuid_.value[i] = uuid[i];
+  }
+  return uuid_;
+}
+
 // adapter.h
 
 BLEX_EXPORT bool    blexAdapterIsBluetoothEnabled() {
@@ -187,67 +195,76 @@ BLEX_EXPORT BlexErrorCode blexPeripheralManufacturerDataGet(
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralRead(BlexPeripheral handle,
-                                       BlexUUID service,
-                                       BlexUUID characteristic,
-                                      uint8_t** data,
-                                        size_t* data_length) {
-  return simpleble_peripheral_read(handle, service, characteristic, data, data_length);
+                                       char* service,
+                                       char* characteristic,
+                                     size_t* data_length,
+                                   uint8_t** data) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic);
+  return simpleble_peripheral_read(handle, service_, characteristic_, data, data_length);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralWriteRequest(BlexPeripheral handle,
-                                                BlexUUID service,
-                                                BlexUUID characteristic,
-                                          const uint8_t* data,
-                                                  size_t data_length) {
-  return simpleble_peripheral_write_request(handle, service, characteristic, data, data_length);
+                                                char* service,
+                                                char* characteristic,
+                                                  size_t data_length,
+                                                uint8_t* data) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic);
+  return simpleble_peripheral_write_request(handle, service_, characteristic_, data, data_length);
 }
 
-BLEX_EXPORT BlexErrorCode blexPeripheralWriteCommand(BlexPeripheral handle,
-                                               BlexUUID service,
-                                               BlexUUID characteristic,
-                                         const uint8_t* data,
-                                                 size_t data_length) {
-  return simpleble_peripheral_write_command(handle, service, characteristic, data, data_length);
+BLEX_EXPORT BlexErrorCode blexPeripheralWriteCommand(
+                                             BlexPeripheral handle,
+                                              char* service,
+                                              char* characteristic,
+                                             size_t data_length,
+                                              uint8_t* data) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic);
+  return simpleble_peripheral_write_command(handle, service_, characteristic_, data, data_length);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralNotify(BlexPeripheral handle,
-                                         BlexUUID service,
-                                         BlexUUID characteristic,
-                                            void (*callback)(BlexUUID service, BlexUUID characteristic, const uint8_t* data, size_t data_length, void* userdata),
-                                            void* userdata) {
-  return simpleble_peripheral_notify(handle, service, characteristic, callback, userdata);
+                                              char* service,
+                                              char* characteristic,
+                                              void (*callback)(const char* service, const char* characteristic, const uint8_t* data, size_t data_length)
+                                              ) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic);
+  return simpleble_peripheral_notify(handle, service_, characteristic_, callback);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralIndicate(BlexPeripheral handle,
-                                           BlexUUID service,
-                                           BlexUUID characteristic,
-                                              void (*callback)(BlexUUID service, BlexUUID characteristic, const uint8_t* data, size_t data_length, void* userdata),
-                                              void* userdata) {
-  return simpleble_peripheral_indicate(handle, service, characteristic, callback, userdata);
+                                              char* service,
+                                              char* characteristic,
+                                              void (*callback)(const char* service, const char* characteristic, const uint8_t* data, size_t data_length)
+                                              ) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic);
+  return simpleble_peripheral_indicate(handle, service_, characteristic_, callback);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralUnsubscribe(BlexPeripheral handle,
-                                              BlexUUID service,
-                                              BlexUUID characteristic) {
-  return simpleble_peripheral_unsubscribe(handle, service, characteristic);
+                                              char* service,
+                                              char* characteristic) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic);
+  return simpleble_peripheral_unsubscribe(handle, service_, characteristic_);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralReadDescriptor(BlexPeripheral handle,
-                                                 BlexUUID service,
-                                                 BlexUUID characteristic,
-                                                 BlexUUID descriptor,
-                                                uint8_t** data,
-                                                  size_t* data_length) {
-  return simpleble_peripheral_read_descriptor(handle, service, characteristic, descriptor, data, data_length);
+                                                  char* service,
+                                                  char* characteristic,
+                                                  char* descriptor,
+                                                  size_t* data_length,
+                                                uint8_t** data) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic), descriptor_ = to_uuid(descriptor);
+  return simpleble_peripheral_read_descriptor(handle, service_, characteristic_, descriptor_, data, data_length);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralWriteDescriptor(BlexPeripheral handle,
-                                                  BlexUUID service,
-                                                  BlexUUID characteristic,
-                                                  BlexUUID descriptor,
-                                            const uint8_t* data,
-                                                    size_t data_length) {
-  return simpleble_peripheral_write_descriptor(handle, service, characteristic, descriptor, data, data_length);
+                                                  char*  service,
+                                                  char*  characteristic,
+                                                  char*  descriptor,
+                                                  size_t data_length,
+                                            const uint8_t* data) {
+  BlexUUID service_ = to_uuid(service), characteristic_ = to_uuid(characteristic), descriptor_ = to_uuid(descriptor);
+  return simpleble_peripheral_write_descriptor(handle, service_, characteristic_, descriptor_, data, data_length);
 }
 
 BLEX_EXPORT BlexErrorCode blexPeripheralSetCallbackOnConnected(BlexPeripheral handle,

@@ -28,14 +28,14 @@ endif()
 # add_subdirectory(cpp/notify_multi)
 
 # C
-# add_executable(example_connect_c c/connect.c)
-# target_link_libraries(example_connect_c simpleble::simpleble-c)
+add_executable(example_connect_c c/connect.c)
+target_link_libraries(example_connect_c simpleble::simpleble-c)
 
-# add_executable(example_notify_c c/notify.c)
-# target_link_libraries(example_notify_c simpleble::simpleble-c)
+add_executable(example_notify_c c/notify.c)
+target_link_libraries(example_notify_c simpleble::simpleble-c)
 
-# add_executable(example_scan_c c/scan.c)
-# target_link_libraries(example_scan_c simpleble::simpleble-c)
+add_executable(example_scan_c c/scan.c)
+target_link_libraries(example_scan_c simpleble::simpleble-c)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     add_library(libblex SHARED x/driver.cpp)

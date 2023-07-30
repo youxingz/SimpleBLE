@@ -93,6 +93,13 @@ int main() {
                 printf("    Descriptor: %s\n", service.characteristics[j].descriptors[k].uuid.value);
             }
         }
+        
+        // send cmd
+        uint8_t cmd[2];
+        cmd[0] = 0x02;
+        cmd[1] = 0x03;
+        err_code = simpleble_peripheral_write_request(peripheral, service.uuid, service.characteristics[0].uuid, cmd, 2);
+        printf("ErrorCode[CMD]: %d\n", err_code);
     }
 
     simpleble_peripheral_disconnect(peripheral);
