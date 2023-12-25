@@ -1,3 +1,11 @@
+Roumai Edition
+==========
+
+在 `examples` 中编译 `simpleble` 项目，得到对应平台的目标文件 (`.dll`, `.so`, `.dylib` 等格式)
+
+将得到的文件放置在 [BLE-Cross-Java](https://github.com/RoumaiMed/BLE-Cross-Java) 项目的对应 lib 文件夹下，重新打包发布到 jitpack 即可
+
+
 SimpleBLE
 ==========
 
