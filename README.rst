@@ -1,10 +1,16 @@
-Roumai Edition
+Forked from `SimpleBLE`
+
+You can build lib files on shell:
+```shell
+cd examples
+cmake -S ./simpleble -B build_simpleble -DSIMPLEBLE_LOCAL=ON
+cmake --build build_simpleble -j7
+```
+and the target files (`.so`, `.dll` or `.dylib`) would be found in the `build` directory.
+
+:)
+
 ==========
-
-在 `examples` 中编译 `simpleble` 项目，得到对应平台的目标文件 (`.dll`, `.so`, `.dylib` 等格式)
-
-将得到的文件放置在 [BLE-Cross-Java](https://github.com/RoumaiMed/BLE-Cross-Java) 项目的对应 lib 文件夹下，重新打包发布到 jitpack 即可
-
 
 SimpleBLE
 ==========
