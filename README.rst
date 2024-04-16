@@ -3,9 +3,11 @@ Forked from `SimpleBLE`
 You can build lib files on shell:
 
 ```shell
+
 cd examples
 cmake -S ./simpleble -B build_simpleble -DSIMPLEBLE_LOCAL=ON
 cmake --build build_simpleble -j7
+
 ```
 
 and the target files (`.so`, `.dll` or `.dylib`) would be found in the `build` directory.
